@@ -25,13 +25,13 @@ def main():
 @sample.route("/add", methods=["POST"])
 def add_router():
     ip = request.form.get("ip_address")
-    user = request.form.get("username")
-    passw = request.form.get("password")
+    use = request.form.get("username")
+    pas = request.form.get("password")
 
-    if ip and user and passw:
-        mydict = {"router_ip": ip, "router_user": user, "router_pass": passw}
+    if ip and use and pas:
+        mydict = {"router_ip": ip, "router_user": use, "router_pass": pas}
         mycol.insert_one(mydict)
-        data.append({"router_ip": ip, "router_user": user, "router_pass": passw})
+        data.append({"router_ip": ip, "router_user": use, "router_pass": pas})
     return redirect("/")
 
 

@@ -2,7 +2,7 @@ import os
 import time
 import pika
 
-from callback import callback
+from callback import callback as cal
 
 
 user = os.getenv("RABUSER")
@@ -28,7 +28,7 @@ def consume(host):
     ch = conn.channel()
     ch.queue_declare(queue="router_jobs")
     ch.basic_qos(prefetch_count=1)
-    ch.basic_consume(queue="router_jobs", on_message_callback=callback, auto_ack=True)
+    ch.basic_consume(queue="router_jobs", on_message_callback=cal, auto_ack=1)
     ch.start_consuming()
 
 
