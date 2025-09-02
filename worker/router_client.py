@@ -1,7 +1,10 @@
 from netmiko import ConnectHandler
-import ntc_templates, os, json
+import ntc_templates
+import os
+import json
 
 from database import save_interface_status
+
 
 def get_interfaces(ip, username, password):
 
@@ -22,7 +25,8 @@ def get_interfaces(ip, username, password):
         conn.disconnect()
 
     print(json.dumps(result, indent=2))
-    save_interface_status(ip,result)
+    save_interface_status(ip, result)
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     get_interfaces()
