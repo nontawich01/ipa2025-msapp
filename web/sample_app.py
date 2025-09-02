@@ -31,7 +31,11 @@ def add_router():
     if ip and user and passw:
         mydict = {"router_ip": ip, "router_user": user, "router_pass": passw}
         mycol.insert_one(mydict)
-        data.append({"router_ip": ip, "router_user": user, "router_pass": passw})
+        data.append({
+            "router_ip": ip,
+            "router_user": user,
+            "router_pass": passw
+        })
     return redirect("/")
 
 
