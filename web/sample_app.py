@@ -11,13 +11,14 @@ db_name    = os.environ.get("DB_NAME")
 client = MongoClient(mongo_uri)
 mydb = client[db_name]
 mycol = mydb["router_info"]
+myrouter = mydb["interface_status"]
 
 sample = Flask(__name__)
 data = []
 
 @sample.route("/")
 def main():
-	return render_template("index.html", data=mycol.find())
+	return render_template("index.html", data=mycol.find(), router="")
 
 @sample.route("/add", methods=["POST"])
 def add_router():
@@ -36,6 +37,14 @@ def delete_comment(idx):
     myquery = {'_id': ObjectId(idx)}
     mycol.delete_one(myquery)
     return redirect("/")
+
+@sample.route("/router/details", methods=["GET"])
+def get_router():
+    ip = request.args.get("ip")
+    data = myrouter.find({"router_ip": ip}).sort("_id", -1).limit(3)
+    print(data)
+    return render_template("index.html", data=mycol.find(), router=data)
+
 
 if __name__ == "__main__":
 	sample.run(host="0.0.0.0", port=8080)

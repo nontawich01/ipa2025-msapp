@@ -9,17 +9,41 @@
     <input name="ip_address" placeholder="IP Address" required />
     <input name="username" placeholder="Username" required />
     <input name="password" placeholder="Password" required />  
-    <button type="submit">Add Comment</button>
+    <button type="submit">Add</button>
   </form>
  <ul>
     {% for comment in data %}
       <li>
-	       {{ comment.router_ip }} - {{ comment.router_user}}	- {{ comment.router_pass}}	 
+	       <a href="/router/details?ip={{ comment.router_ip }}">{{ comment.router_ip }}</a> - {{ comment.router_user}}
   <form method="POST" action="{{ url_for('delete_comment', idx=comment._id) }}" style="display:inline">
       <button type="submit">Delete</button>
 </form>
       </li>
     {% endfor %}
   </ul>
+  <table>
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Status</th>
+            <th>Protocol</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in router %}
+        {% for iface in data.interfaces %}
+        <tr>
+            <td>{{data.timestamp}}</td>
+            <td>{{iface.interface}}</td>
+            <td>{{iface.ip_address}}</td>
+            <td>{{iface.status}}</td>
+            <td>{{iface.proto}}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+
+
 </body>
 </html>
