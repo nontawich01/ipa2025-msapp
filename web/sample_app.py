@@ -31,11 +31,7 @@ def add_router():
     if ip and user and passw:
         mydict = {"router_ip": ip, "router_user": user, "router_pass": passw}
         mycol.insert_one(mydict)
-        data.append({
-            "router_ip": ip,
-            "router_user": user,
-            "router_pass": passw
-        })
+        data.append({"router_ip": ip, "router_user": user, "router_pass": passw})
     return redirect("/")
 
 
@@ -49,11 +45,7 @@ def delete_comment(idx):
 @sample.route("/router/details", methods=["GET"])
 def get_router():
     ip = request.args.get("ip")
-    data = (
-        myrouter.find({"router_ip": ip})
-        .sort("_id", -1)
-        .limit(3)
-    )
+    data = myrouter.find({"router_ip": ip}).sort("_id", -1).limit(3)
     print(data)
     return render_template("index.html", data=mycol.find(), router=data)
 
